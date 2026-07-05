@@ -1,10 +1,9 @@
-PartitionResult 1.0
 NumInstances 8
-Inst C1 Top
-Inst C2 Top
-Inst C3 Top
-Inst C4 Bottom
-Inst C5 Bottom
-Inst C6 Bottom
+Inst C1 Bottom
+Inst C2 Bottom
+Inst C3 Bottom
+Inst C4 Top
+Inst C5 Top
+Inst C6 Top
 Inst C7 Top
-Inst C8 Top
+Inst C8 Bottom

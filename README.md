@@ -13,13 +13,13 @@
 ```bash
 cd contest_release
 chmod +x partition partition_checker placement placer terminal_stage evaluator shmetis
-chmod +x run_reference.sh run_pipeline.sh
+chmod +x run.sh
 ```
 
 ## 2. 先运行参考流程
 
 ```bash
-./run_reference.sh testcases/case1.txt results/reference_case1
+./run.sh testcases/case1.txt results/reference_case1
 ```
 
 运行顺序：
@@ -60,7 +60,6 @@ Total HPWL for this design is 130
 输出格式：
 
 ```text
-PartitionResult 1.0
 NumInstances 3
 Inst C1 Top
 Inst C2 Bottom
@@ -81,8 +80,8 @@ Inst C3 Top
 假设你的程序是当前目录下的 `student_partition`：
 
 ```bash
-./run_pipeline.sh \
-    ./student_partition \
+PARTITION=./student_partition \
+./run.sh \
     testcases/case1.txt \
     results/student_case1
 ```
@@ -90,10 +89,21 @@ Inst C3 Top
 脚本会自动：
 
 1. 运行你的 Partition；
-2. 检查输出格式、instance 完整性和利用率；
-3. 运行参考 Placement；
-4. 插入跨层 terminal；
-5. 调用 evaluator 计算最终 HPWL。
+2. 运行 Placement；
+3. 插入跨层 terminal；
+4. 调用 evaluator 计算最终 HPWL。
+
+替换其他阶段使用相同方式：
+
+```bash
+PARTITION=./my_partition \
+PLACEMENT=./my_placement \
+TERMINAL=./my_terminal \
+EVALUATOR=./my_evaluator \
+./run.sh testcases/case1.txt results/my_case1
+```
+
+四个变量都可以省略；省略时使用发布包内的参考程序。
 
 ## 5. 只检查 Partition
 
@@ -176,8 +186,8 @@ placement              Placement 阶段
 placer                 Placement 内部引擎
 terminal_stage         Terminal Insertion 阶段
 evaluator              最终评测器
-run_reference.sh       运行完整参考流程
-run_pipeline.sh        运行学生 Partition 和参考后端
+visualize              独立 SVG 布局可视化程序
+run.sh                 四阶段流水线；默认参考程序，可替换任意阶段
 testcases/              测试用例
 examples/               示例输出
 STAGE_FORMATS.md        完整接口与文件格式
@@ -196,3 +206,16 @@ STAGE_FORMATS.md        完整接口与文件格式
 ### Placement 输出很多日志
 
 这是参考 placer 的正常迭代信息。最终以 evaluator 的合法性结果和 HPWL 为准。
+
+## 10. 生成布局图
+
+完整流程产生 `.out` 文件后，可以生成 SVG：
+
+```bash
+./visualize \
+    testcases/case1.txt \
+    results/case1.out \
+    results/case1.svg
+```
+
+SVG 会并排展示 Top Die 和 Bottom Die。彩色矩形表示 standard cell，红点表示跨层 terminal。SVG 可以直接用浏览器打开。

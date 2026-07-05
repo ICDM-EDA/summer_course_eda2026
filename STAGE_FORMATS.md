@@ -36,7 +36,6 @@ testcase.txt + result.place → terminal_stage → result.out
 ### 2.2 输出语法
 
 ```text
-PartitionResult 1.0
 NumInstances <N>
 Inst <instance-name> <Top|Bottom>
 ... 共 N 行 Inst
@@ -45,7 +44,6 @@ Inst <instance-name> <Top|Bottom>
 示例：
 
 ```text
-PartitionResult 1.0
 NumInstances 8
 Inst C1 Top
 Inst C2 Top
@@ -136,7 +134,6 @@ Partition check: PASS
 ### 3.2 输出语法
 
 ```text
-PlacementResult 1.0
 NumInstances <N>
 Inst <instance-name> <Top|Bottom> <x> <y>
 ... 共 N 行 Inst
@@ -145,7 +142,6 @@ Inst <instance-name> <Top|Bottom> <x> <y>
 示例：
 
 ```text
-PlacementResult 1.0
 NumInstances 4
 Inst C1 Top 0 0
 Inst C2 Bottom 12 15
@@ -249,8 +245,8 @@ Terminal N2 14 8
 如果只替换 Partition：
 
 ```bash
-./run_pipeline.sh \
-    ./student_partition \
+PARTITION=./student_partition \
+./run.sh \
     testcases/case1.txt \
     results/student_case1
 ```
