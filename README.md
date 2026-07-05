@@ -209,13 +209,13 @@ STAGE_FORMATS.md        完整接口与文件格式
 
 ## 10. 生成布局图
 
-完整流程产生 `.out` 文件后，可以生成 SVG：
+完整流程产生 `.out` 文件后，可以生成 PNG：
 
 ```bash
 ./visualize \
     testcases/case1.txt \
     results/case1.out \
-    results/case1.svg
+    results/case1.png
 ```
 
-SVG 会并排展示 Top Die 和 Bottom Die。彩色矩形表示 standard cell，红点表示跨层 terminal。SVG 可以直接用浏览器打开。
+PNG 包含三个并排视图：Top Die、Bottom Die 和 Terminal。所有 standard cell 使用相同的蓝色，红色矩形表示 terminal。
